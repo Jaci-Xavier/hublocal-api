@@ -1,4 +1,5 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, Validate } from 'class-validator';
+import { IsCnpjValid } from 'src/common/utils/IsCnpjValid';
 
 export class UpdateEmpresaDto {
   @IsOptional()
@@ -7,6 +8,7 @@ export class UpdateEmpresaDto {
 
   @IsOptional()
   @IsString()
+  @Validate(IsCnpjValid)
   cnpj?: string;
 
   @IsOptional()

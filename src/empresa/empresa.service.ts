@@ -27,39 +27,16 @@ export class EmpresaService {
 
   async findAll(userId: string) {
     return await this.prisma.empresas.findMany({
-      where: {
-        usuarioId: userId,
-      },
+      where: { usuarioId: userId },
     });
   }
 
   async findOne(id: string, userId: string) {
-    const empresa = await this.prisma.empresas.findFirst({
-      where: {
-        id,
-        usuarioId: userId,
-      },
-    });
-
-    if (!empresa) {
-      throw new NotFoundException('Empresa não encontrada');
-    }
-
-    return empresa;
+    return await this.findEmpresaOrThrow(id, userId);
   }
 
   async update(userId: string, empresaId: string, updateEmpresaDto: UpdateEmpresaDto) {
-    const empresa = await this.prisma.empresas.findUnique({
-      where: { id: empresaId },
-    });
-
-    if (!empresa) {
-      throw new NotFoundException('Empresa não encontrada');
-    }
-
-    if (empresa.usuarioId !== userId) {
-      throw new ForbiddenException('Você não tem permissão para atualizar esta empresa');
-    }
+    await this.findEmpresaOrThrow(empresaId, userId);
 
     return await this.prisma.empresas.update({
       where: { id: empresaId },
@@ -68,20 +45,26 @@ export class EmpresaService {
   }
 
   async remove(userId: string, empresaId: string) {
-    const empresa = await this.prisma.empresas.findUnique({
-      where: { id: empresaId },
-    });
-
-    if (!empresa) {
-      throw new NotFoundException('Empresa não encontrada');
-    }
-
-    if (empresa.usuarioId !== userId) {
-      throw new ForbiddenException('Você não tem permissão para excluir esta empresa');
-    }
+    await this.findEmpresaOrThrow(empresaId, userId);
 
     return await this.prisma.empresas.delete({
       where: { id: empresaId },
     });
+  }
+
+  private async findEmpresaOrThrow(id: string, userId: string) {
+    const empresa = await this.prisma.empresas.findUnique({
+      where: { id },
+    });
+
+    if (!empresa) {
+      throw new NotFoundException(`Empresa com id ${id} não encontrada`);
+    }
+
+    if (empresa.usuarioId !== userId) {
+      throw new ForbiddenException('Você não tem permissão para acessar esta empresa');
+    }
+
+    return empresa;
   }
 }
