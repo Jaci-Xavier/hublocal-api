@@ -1,98 +1,103 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+# API de Gestão de Empresas e Locais
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+Esta é uma API desenvolvida com **NestJS** para gerenciamento de empresas e locais. Ela oferece funcionalidades para criação, atualização, exclusão e consulta de empresas e locais. A API também está protegida por **JWT (JSON Web Token)** para autenticação.
 
-## Description
+## Tecnologias Usadas
+- **NestJS**: Framework para Node.js baseado em TypeScript.
+- **Prisma**: ORM (Object Relational Mapper) para fácil acesso ao banco de dados.
+- **JWT**: Sistema de autenticação com token para proteger as rotas da API.
+- **Swagger**: Documentação interativa da API.
+- **class-validator**: Biblioteca para validação de dados.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Funcionalidades
+- **Autenticação JWT**: Protege as rotas da API, garantindo que apenas usuários autenticados possam acessar recursos sensíveis.
+- **Gestão de Usuários**: Criar usuário.
+- **Gestão de Empresas**: Criar, atualizar, excluir e listar empresas.
+- **Gestão de Locais**: Criar, atualizar, excluir e listar locais associados a empresas.
 
-## Project setup
+## Pré-requisitos
 
-```bash
-$ npm install
-```
+Antes de começar, verifique se você tem os seguintes requisitos instalados:
 
-## Compile and run the project
+- **Node.js** (v20 ou superior)
+- **npm** (gerenciador de pacotes do Node.js)
+- **Banco de dados** (exemplo: PostgreSQL, MySQL ou SQLite)
+- **Prisma CLI** (para gerar o banco de dados)
+
+## Instalação
+
+### Passo 1: Clone o repositório
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+git clone git@github.com:Jaci-Xavier/hublocal-api.git
 ```
 
-## Run tests
+### Passo 2: Instale as dependências
+
+Navegue até o diretório do projeto e instale as dependências necessárias:
 
 ```bash
-# unit tests
-$ npm run test
-
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
+cd hublocal-api
+npm install
 ```
 
-## Deployment
+### Passo 3: Configure o Banco de Dados
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
-
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+1. Crie um banco de dados (PostgreSQL, MySQL, ou SQLite).
+2. No arquivo `.env`, configure as variáveis de ambiente para conectar ao seu banco de dados. Exemplo para PostgreSQL:
 
 ```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
+DATABASE_URL="postgresql://usuario:senha@localhost:5432/nome_do_banco"
 ```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+### Passo 4: Gerar o banco de dados com Prisma
 
-## Resources
+Com o banco de dados configurado, execute o comando para gerar as tabelas:
 
-Check out a few resources that may come in handy when working with NestJS:
+```bash
+npx prisma migrate dev --name init
+```
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+### Passo 5: Iniciar a API
 
-## Support
+Agora você pode iniciar a API:
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+```bash
+npm run start
+```
 
-## Stay in touch
+A API estará disponível em `http://localhost:3000`.
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+## Documentação da API
 
-## License
+A API está documentada com **Swagger**. Para visualizar a documentação interativa, acesse o seguinte link:
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+[http://localhost:3000/api](http://localhost:3000/api)
+
+### Autenticação
+
+As rotas da API estão protegidas por **JWT**. Para testar as rotas protegidas no Swagger:
+
+1. Clique no botão **"Authorize"** no canto superior direito.
+2. Insira o seu **JWT Token**.
+
+As rotas que exigem autenticação terão o token anexado automaticamente aos headers das requisições.
+
+### Endpoints Principais
+
+#### Empresas
+
+- **POST /empresas**: Cria uma nova empresa.
+- **GET /empresas**: Lista todas as empresas.
+- **GET /empresas/:id**: Retorna uma empresa específica.
+- **PATCH /empresas/:id**: Atualiza os dados de uma empresa.
+- **DELETE /empresas/:id**: Remove uma empresa.
+
+#### Locais
+
+- **POST /locais**: Cria um novo local associado a uma empresa.
+- **GET /locais**: Lista todos os locais de uma empresa.
+- **GET /locais/:id**: Retorna um local específico.
+- **PATCH /locais/:id**: Atualiza os dados de um local.
+- **DELETE /locais/:id**: Remove um local.
