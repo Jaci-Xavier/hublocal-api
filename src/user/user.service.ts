@@ -12,14 +12,13 @@ export class UserService {
         return await this.prisma.$transaction(async (prisma) => {
             try {
                 const hashedPassword = await hashPassword(data.senha);
-                const user = await prisma.usuarios.create({
+                await prisma.usuarios.create({
                     data: {
                         ...data,
                         senha: hashedPassword,
                     },
                 });
-                const { senha, ...userWithoutPassword } = user;
-                return userWithoutPassword;
+                return {message: "Usuario criado com sucesso!"};
             } catch (error) {
                 throw new Error(`${error.message}`);
             }
