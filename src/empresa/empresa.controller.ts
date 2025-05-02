@@ -2,7 +2,7 @@ import { Controller, Post, Get, Patch, Delete, Body, Param, UseGuards, Request }
 import { EmpresaService } from "./empresa.service";
 import { CreateEmpresaDto } from "./dto/create-empresa.dto";
 import { UpdateEmpresaDto } from "./dto/update-empresa.dto";
-import { JwtAuthGuard } from "src/auth/guards/jwt-auth.guard";
+import { JwtAuthGuard } from "../auth/guards/jwt-auth.guard";
 
 @Controller("empresa")
 @UseGuards(JwtAuthGuard)  
