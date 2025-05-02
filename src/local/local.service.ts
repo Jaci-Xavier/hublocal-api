@@ -35,12 +35,13 @@ export class LocalService {
     });
   }
 
-  async remove(id: string, empresaId: string) {
-    await this.findLocalOrThrow(id, empresaId);
+  async remove(empresaId: string, id: string) {
+    const teste = await this.findLocalOrThrow(id, empresaId);
 
     return await this.prisma.locais.delete({
       where: { id },
     });
+
   }
 
   private async findLocalOrThrow(id: string, empresaId: string) {

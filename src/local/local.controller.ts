@@ -36,6 +36,6 @@ export class LocalController {
 
   @Delete(':empresaId/:id')
   async remove(@Param('empresaId') empresaId: string, @Param('id') id: string) {
-    return this.locaisService.remove(id, empresaId);
+    return this.locaisService.remove(empresaId, id);
   }
 }

@@ -11,7 +11,7 @@ export class EmpresaController {
 
     @Post()
     async create(@Request() req, @Body() createEmpresaDto: CreateEmpresaDto) {
-        const userId = req.user.id;
+        const userId = req.user.id
         return this.empresaService.create(userId, createEmpresaDto);
     }
 
@@ -36,6 +36,6 @@ export class EmpresaController {
     @Delete(":id")
     async remove(@Param("id") id: string, @Request() req) {
         const userId = req.user.id;
-        return this.empresaService.remove(id, userId);
+        return this.empresaService.remove(userId,id);
     }
 }

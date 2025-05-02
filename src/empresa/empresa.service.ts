@@ -15,20 +15,42 @@ export class EmpresaService {
 
     await validateOrReject(createEmpresaDto);
 
-    return this.prisma.empresas.create({
+    const empresa = await this.prisma.empresas.create({
       data: {
         nome: createEmpresaDto.nome,
         cnpj: createEmpresaDto.cnpj,
         website: createEmpresaDto.website,
         usuarioId: userId,
       },
+      include: {
+        locais: true,
+      },
     });
+
+    return {
+      id: empresa.id,
+      empresa: empresa.nome,
+      quantidade: empresa.locais.length,
+      cnpj: empresa.cnpj,
+      website: empresa.website,
+    };
   }
 
   async findAll(userId: string) {
-    return await this.prisma.empresas.findMany({
+    const empresas = await this.prisma.empresas.findMany({
       where: { usuarioId: userId },
+      include: {
+        locais: true,
+      },
     });
+
+    return empresas.map(empresa => ({
+      id: empresa.id,
+      empresa: empresa.nome,
+      quantidade: empresa.locais.length,
+      cnpj: empresa.cnpj,
+      website: empresa.website,
+    }));
   }
 
   async findOne(id: string, userId: string) {
@@ -36,12 +58,23 @@ export class EmpresaService {
   }
 
   async update(userId: string, empresaId: string, updateEmpresaDto: UpdateEmpresaDto) {
-    await this.findEmpresaOrThrow(empresaId, userId);
+    const empresa = await this.findEmpresaOrThrow(empresaId, userId);
 
-    return await this.prisma.empresas.update({
+    const updatedEmpresa = await this.prisma.empresas.update({
       where: { id: empresaId },
       data: updateEmpresaDto,
+      include: {
+        locais: true,
+      },
     });
+
+    return {
+      id: updatedEmpresa.id,
+      empresa: updatedEmpresa.nome,
+      quantidade: updatedEmpresa.locais.length,
+      cnpj: updatedEmpresa.cnpj,
+      website: updatedEmpresa.website,
+    };
   }
 
   async remove(userId: string, empresaId: string) {
