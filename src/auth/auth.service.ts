@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable, NotFoundException, UnauthorizedException } from "@nestjs/common";
-import { UserService } from "src/user/user.service";
-import { comparePassword } from "src/common/utils/bcrypt.util";
-import { generateToken } from "src/common/utils/jwt.util";
+import { UserService } from "../user/user.service";
+import { comparePassword } from "../common/utils/bcrypt.util";
+import { generateToken } from "../common/utils/jwt.util";
 
 @Injectable()
 export class AuthService {
