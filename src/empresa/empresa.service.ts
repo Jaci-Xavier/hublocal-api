@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException, ForbiddenException } from '@nestjs/common';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { PrismaService } from '../prisma/prisma.service';
 import { CreateEmpresaDto } from './dto/create-empresa.dto';
 import { UpdateEmpresaDto } from './dto/update-empresa.dto';
-import { formatCnpj } from 'src/common/utils/formatCnpj.util';
+import { formatCnpj } from '../common/utils/formatCnpj.util';
 import { validateOrReject } from 'class-validator';
 
 @Injectable()
